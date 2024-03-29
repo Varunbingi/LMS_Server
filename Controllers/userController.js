@@ -13,7 +13,7 @@ const cookieOptions={
 }
 
  export const register=async(req,res,next)=>{
-    const {fullName,email,password}=req.body;
+    const {fullName,email,password,role}=req.body;
 
     if(!fullName || !email || !password){
         return next(new AppError('All fileds are required',400))
@@ -26,6 +26,7 @@ const cookieOptions={
         fullName,
         email,
         password,
+        role,
         avatar:{
             public_id:email,
             secure_url:"https://www.pngitem.com/pimgs/m/78-786293_1240-x-1240-0-avatar-profile-icon-png.png",

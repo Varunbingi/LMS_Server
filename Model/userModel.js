@@ -47,6 +47,9 @@ userSchema.pre('save', async function(next) {
         return next();
     }
     this.password = await bcrypt.hash(this.password, 10);
+    if(!this.role){
+        this.role="USER";
+    }
     next();
 });
 
@@ -79,5 +82,6 @@ userSchema.methods.generateJWTToken = async function() {
 };
 
 const User = model('User', userSchema);
+
 
 export default User;
