@@ -8,6 +8,7 @@ import errorMiddleware from './Middleware/errorMiddleware.js';
 import morgan from 'morgan';
 
 import courseRouter from './Routes/courseRoutes.js';
+import paymentRouter from './Routes/paymentRoutes.js';
 const app=express();
 app.use(express.json());
 app.use(morgan('dev'))
@@ -22,6 +23,7 @@ app.use("/api/v1/courses",courseRouter);
 app.use('/ping',(req,res)=>{
     res.send("pong")
 })
+app.use("api/v1/payment",paymentRouter);
 app.all("*",(req,res)=>{
     res.status(404).send("Opps!! page not found")
 })

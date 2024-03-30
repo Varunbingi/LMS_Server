@@ -39,7 +39,11 @@ const userSchema = new Schema({
         }
     },
     forgotPasswordToken: String,
-    forgotPasswordExpiry: String 
+    forgotPasswordExpiry: String ,
+    subscription:{
+        id:String,
+        status:String,
+    }
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {
@@ -72,7 +76,7 @@ userSchema.methods.generateJWTToken = async function() {
             id: this._id,
             role: this.role,
             email: this.email,
-            // subscription: this.subscription, 
+             subscription: this.subscription, 
         },
         process.env.JWT_SECRET,
         {
