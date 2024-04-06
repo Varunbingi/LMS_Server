@@ -9,21 +9,23 @@ import morgan from 'morgan';
 
 import courseRouter from './Routes/courseRoutes.js';
 import paymentRouter from './Routes/paymentRoutes.js';
+import contactRouter from './Routes/contactRouter.js';
 const app=express();
 app.use(express.json());
 app.use(morgan('dev'))
 
 app.use(cors({
-    origin:process.env.FRONTEND_URL,
+    origin:process.env.FRONTEND_URL||5173,
     credentials:true
 }))
 app.use(cookieParser());
 app.use("/api/v1/user",userRouter)
 app.use("/api/v1/courses",courseRouter);
+app.use("/api/v1/contact",contactRouter);
 app.use('/ping',(req,res)=>{
     res.send("pong")
 })
-app.use("api/v1/payment",paymentRouter);
+app.use("/api/v1/payment",paymentRouter);
 app.all("*",(req,res)=>{
     res.status(404).send("Opps!! page not found")
 })

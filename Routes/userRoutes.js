@@ -8,7 +8,7 @@ const userRouter=express.Router();
 
 userRouter.post('/register',upload.single('avatar'),register);
 userRouter.post('/login',login);
-userRouter.get('/logout',logout);
+userRouter.post('/logout',logout);
 userRouter.get('/me',isLoggedIn,getUser);
 userRouter.post('/reset',forgotPassword);
 userRouter.post("/reset/:resetToken",resetPassword)
