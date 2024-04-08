@@ -5,6 +5,7 @@ import fs from 'fs/promises';
 import sendEmail from "../utils/sendEmail.js";
 import crypto from 'crypto'
 
+
 const cookieOptions={
     secure:true,
     maxAge:24*60*1000,
@@ -72,13 +73,13 @@ res.cookie('token',token,cookieOptions);
 
 }
 
- export const login=async(req,res)=>{
+ export const login=async(req,res,next)=>{
 const {email,password}=req.body;
 if(!email||!password){
     return next(new AppError("all fileds are required",400));
 }
-const user=await User.findOne({email}).select(+password);
-if(!user|| !user.comparePassword(password)){
+const user=await User.findOne({email}).select('+password');
+if(!user|| !(await user.comparePassword(password))){
     return next(new AppError("Email or password doesn't match",400));
 }
 const token=await user.generateJWTToken();
@@ -86,7 +87,8 @@ user.password=undefined;
 res.cookie('token',token,cookieOptions);
 res.status(201).json({
     success:true,
-    message:"User registered successfully"
+    message:"User registered successfully",
+    user
 })
 
 }
