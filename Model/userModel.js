@@ -41,9 +41,9 @@ const userSchema = new Schema({
     },
     forgotPasswordToken: String,
     forgotPasswordExpiry: String ,
-    subscription:{
-        id:String,
-        status:String,
+    subscription: {
+        id: { type: String },
+        status: { type: String }
     }
 }, { timestamps: true });
 
@@ -72,12 +72,12 @@ userSchema.methods.generatePasswordToken=async function(){
 }
 
 userSchema.methods.generateJWTToken = async function() {
-    return JWT.sign(
+    return await JWT.sign(
         {
             id: this._id,
             role: this.role,
             email: this.email,
-             subscription: this.subscription, 
+            subscription: this.subscription, 
         },
         process.env.JWT_SECRET,
         {

@@ -32,6 +32,7 @@ const cookieOptions={
             public_id:email,
             secure_url:"https://www.pngitem.com/pimgs/m/78-786293_1240-x-1240-0-avatar-profile-icon-png.png",
         },
+       
 
     })
     if(!User){
@@ -195,7 +196,7 @@ export const updateUser=async(req,res,next)=>{
     if(!user){
         return next(new AppError("user does not exist"),400)
     }
-    if(req.fullName){
+    if(fullName){
         user.fullName=fullName;
     }
     if(req.file){
@@ -214,7 +215,7 @@ export const updateUser=async(req,res,next)=>{
                 user.avatar.public_id=result.public_id;
                 user.avatar.secure_url=result.secure_url;
                 //remove file from local server
-                fs.rm(`uploads/${req.file.filename}`);
+                await fs.rm(`uploads/${req.file.filename}`);
             }
         }
         catch(e){
