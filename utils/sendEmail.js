@@ -1,16 +1,16 @@
 import nodemailer from 'nodemailer'
 const sendEmail=async function (email,subject,message){
     let transporter=nodemailer.createTransport({
-        host:"smtp.ethereal.email",
-        port:587,
-        secure:false,
+        host:process.env.SMTP_HOST,
+        port:process.env.SMTP_PORT,
+        secure:true,
         auth:{
-            user:"maddison53@ethereal.email",
-            pass:"jn7jnAPss4f63QBp6D",
+            user:process.env.SMTP_USERNAME,
+            pass:process.env.SMTP_PASSWORD,
         }
     })
     await transporter.sendMail({
-        from:"bingivarun27@gmail.com",
+        from:process.env.SMTP_FROM_EMAIL,
         to:email,
         subject:subject,
         html:message,

@@ -106,7 +106,7 @@ export const cancelSubscription=async(req,res,next)=>{
         if(user.role==="ADMIN"){
             return next(new AppError("Admin cannot cancel the subscription",400))
         }
-        const subscriptionId=user.razorpay_subscription_id;
+        const subscriptionId=user.subscription.id;
         const subscription=await razorpay.subscriptions.cancel(subscriptionId);
         user.subscription.status=subscription.status;
         await user.save();
