@@ -22,9 +22,7 @@ app.use(cookieParser());
 app.use("/api/v1/user",userRouter)
 app.use("/api/v1/courses",courseRouter);
 app.use("/api/v1/contact",contactRouter);
-app.use('/ping',(req,res)=>{
-    res.send("pong")
-})
+
 app.use("/api/v1/payments",paymentRouter);
 app.all("*",(req,res)=>{
     res.status(404).send("Opps!! page not found")
