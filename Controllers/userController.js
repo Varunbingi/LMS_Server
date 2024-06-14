@@ -8,7 +8,7 @@ import crypto from 'crypto'
 
 const cookieOptions={
     secure:true,
-    maxAge:24*60*1000,
+    maxAge:5*60*1000,
     httpOnly:true
 
 }
@@ -86,10 +86,13 @@ if(!user|| !(await user.comparePassword(password))){
 const token=await user.generateJWTToken();
 user.password=undefined;
 res.cookie('token',token,cookieOptions);
+
+
 res.status(201).json({
     success:true,
     message:"User registered successfully",
-    user
+    user,
+    token
 })
 
 }
@@ -107,6 +110,7 @@ export const logout=(req,res)=>{
 }
 export const getUser=async(req,res)=>{
     const user=await User.findById(req.user.id);
+    console.log()
     res.status(200).json({
         success:true,
         message:"user details",
