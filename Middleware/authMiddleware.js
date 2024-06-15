@@ -3,12 +3,12 @@ import JWT from 'jsonwebtoken';
 
 export const isLoggedIn = function(req, res, next) {
     const { token } = req.cookies;
-    if (!token) {
-        return next(new AppError("Unauthenticated, please login", 401));
-    }
+    console.log(token);
+    
     try {
         const tokenDetails = JWT.verify(token, process.env.JWT_SECRET); 
         req.user = tokenDetails;
+        console.log(tokenDetails)
         
         next();
     } catch (error) {
