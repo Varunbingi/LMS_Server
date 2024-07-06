@@ -2,8 +2,9 @@ import AppError from '../utils/AppError.js';
 import JWT from 'jsonwebtoken';
 
 export const isLoggedIn = function(req, res, next) {
-    const { token } = req.cookies;
-    console.log(token);
+    
+    const token = (req.cookies && req.cookies.token) || null;
+    
     
     try {
         const tokenDetails = JWT.verify(token, process.env.JWT_SECRET); 

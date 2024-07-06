@@ -8,8 +8,9 @@ import crypto from 'crypto'
 
 const cookieOptions={
     secure:true,
-    maxAge:5*60*1000,
+    maxAge:24*60*60*1000,
     httpOnly:true
+
 
 }
 
@@ -69,6 +70,7 @@ res.cookie('token',token,cookieOptions);
         success:true,
         message:"user registration successfull",
         user,
+        
     })
 
 
