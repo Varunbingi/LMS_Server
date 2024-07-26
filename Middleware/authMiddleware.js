@@ -4,7 +4,7 @@ import JWT from 'jsonwebtoken';
 export const isLoggedIn = function(req, res, next) {
     
     const token = (req.cookies && req.cookies.token) || null;
-    
+    console.log(token);
     
     try {
         const tokenDetails = JWT.verify(token, process.env.JWT_SECRET); 
